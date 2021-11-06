@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "780811686644",
+    "project_id": "login-maximize",
+    "storage_bucket": "login-maximize.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780811686644:android:c7503cd2239740b406c4a1",
+        "android_client_info": {
+          "package_name": "com.loginmax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780811686644-er711fbjg9epsgg1uq8m08k5h4v90v85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXnOhg_SI5eppVgqOJGR4jTp_DPjAZToY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780811686644-er711fbjg9epsgg1uq8m08k5h4v90v85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
