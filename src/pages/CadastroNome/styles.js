@@ -9,7 +9,8 @@ export default StyleSheet.create({
     containerTitle:{
         justifyContent:'center',
         alignItems:'center',
-        marginTop:'7%'
+        marginTop:'7%',
+        marginBottom:30
     },
     textBox:{
         width:'90%',

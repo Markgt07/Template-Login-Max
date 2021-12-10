@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
-import {Text, View,Image, TextInput,TouchableOpacity,Platform,KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback} from 'react-native';
+import {Text, View,Image, TextInput,TouchableOpacity,Platform,KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback,Alert} from 'react-native';
 import { AuthContext } from '../../contexts/auth';
 import {FontAwesome5,MaterialCommunityIcons} from '@expo/vector-icons'
 import styles from './styles';
+import * as Yup from 'yup';
+import { Input } from 'react-native-elements';
 
 export default function Login({navigation}) {
 
@@ -11,14 +13,34 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin(){
+ /* function handleLogin(){
     if(email === '' || password === ''){
       console.log('Preencha todos os campos!')
       return;
     }
     alert('Login')
-  }
+  }*/
+  async function handleSendForm(){
+    try{
+      const schema = Yup.object().shape({
+        email: yup
+        .string()
+        .required('O email não pode ser vazio')
+        .email('Digite um email válido'),
+        password: yup
+        .string()
+        .required('A senha não pode ser vazia')
+        .min(6, 'A senha deve conter pelo menos 6 dígitos')
+      })
+      await schema.validate({email,password},{abortEarly: false,})
 
+      Alert.alert('Passou')
+    }catch(error){ 
+      if(error instanceof Yup.ValidationError){
+        Alert.alert(error.message)
+      }
+    }
+  }
   
     return (
       <KeyboardAvoidingView
@@ -33,18 +55,19 @@ export default function Login({navigation}) {
               style={styles.logo}
             />
   
-            <TextInput 
+            <Input 
               placeholder="email@email.com"
-              style={styles.input}
+              inputContainerStyle={{borderBottomWidth:0}}
               autoFocus={true}
               keyboardType='email-address'
               value={email}
               onChangeText={text=>setEmail(text)}
             />
-            <TextInput 
+            <Input 
               secureTextEntry={true}
               placeholder="********"
-              style={styles.input}
+              inputContainerStyle={{borderBottomWidth:0}}
+
               value={password}
               onChangeText={text=>setPassword(text)}              
             />
@@ -55,7 +78,7 @@ export default function Login({navigation}) {
               </TouchableOpacity>
             </View>
   
-            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+            <TouchableOpacity style={styles.loginButton} onPress={handleSendForm}>
                 <Text style={styles.loginText}>Login</Text>
               </TouchableOpacity>
   

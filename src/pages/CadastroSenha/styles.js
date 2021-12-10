@@ -1,38 +1,39 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
-export default StyleSheet.create({
-    container:{
-        backgroundColor: '#ffffff',
-            alignItems: 'center',
-            justifyContent:'center',
-    },
-    containerTitle:{
-        justifyContent:'center',
-        alignItems:'center',
-        marginTop:'5%'
-    },
-    textBox:{
-        width:'90%',
-        height:42,
-        backgroundColor: "#F4F3F3",
-        marginTop:14,
-        marginBottom: 10,
-        padding: 8,
-        borderRadius: 5,
-        borderWidth: 1, 
-        borderColor: '#E0E0E0'
-    },
-    button:{
-        marginTop:'1%',
-        backgroundColor:'#399fff',
-        width:'90%',
-        height: 42,
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius: 5  
-    },
-    loginText:{
-        color:'#FFF',
-        fontSize:17
-      }
-});
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'grey'
+  },
+  input: {
+    height: 40,
+    fontSize: 16,
+    backgroundColor: '#fff',
+    paddingHorizontal: 8,
+    borderRadius: 8
+  },
+  label: {
+    fontSize: 14,
+    color: '#fff',
+    marginBottom: 4
+  },
+  container: {
+    width: '80%',
+    borderRadius: 10,
+    marginBottom: 10
+  },
+  borderError: {
+    borderWidth: 1,
+    borderColor: 'rgba(200,0,50,1)'
+  },
+  errorMessage: {
+    fontSize: 12,
+    color: 'rgba(200,0,50,1)',
+    textAlign: 'center',
+    marginTop: 5
+  }
+})
+
+export default styles
