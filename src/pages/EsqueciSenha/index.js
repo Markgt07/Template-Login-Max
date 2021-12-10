@@ -5,7 +5,7 @@ import {Text, View,TextInput,TouchableOpacity,Platform,KeyboardAvoidingView,Keyb
 import styles from './styles.js';
 
 
-export default function cadastroSenha({navigation}) {
+export default function esqueciSenha({navigation}) {
 
     const [isSelected,setSelected] = useState(false)
     const [senha,setSenha] = useState('')

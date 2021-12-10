@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
 
 
-export default function Home() {
+export default function Home({navigation}) {
   return (
     <View >
       <Text>aqui vai o aplicativo</Text>

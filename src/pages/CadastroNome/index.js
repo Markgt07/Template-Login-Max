@@ -6,22 +6,16 @@ import styles from './styles.js';
 import { Input } from 'react-native-elements';
 import * as Yup from 'yup';
 
-function CadastroNome({navigation}) {
+export default function CadastroNome({navigation}) {
 
-  const [haveLogin,setHaveLogin] = useState (true);
+  
   const [email,setEmail] = useState('');
   const [nome,setNome] = useState('');
   const [password,setPassword] = useState('');
   const [passwordConfirmation,setPasswordConfirmation] = useState('');
 
   
-  const Avançar = ()=> {
-    alert(email);
-  }
-
-  function toggleLogin (){
-    setHaveLogin(!haveLogin);
-  }
+  
   //Validação Manual 
  /* function handleSingUp(){
     if(email === ''){
@@ -32,10 +26,11 @@ function CadastroNome({navigation}) {
   }*/
 
   //Função do Yup
+
   async function handleSendForm(){
     try{
       const schema = Yup.object().shape({
-        email: Yup.string().email().required(),
+        email: Yup.string().email().required('capo'),
         nome: Yup.string().required(),
         password: Yup.string().min(8).required(),
         passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
@@ -53,15 +48,12 @@ function CadastroNome({navigation}) {
     }
   }
 
-  if(haveLogin){
     return (
         
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios'? 'padding' : 'height'}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios'? 'padding' : 'height'}style={{flex:1}}>
         <TouchableWithoutFeedback onPress={ () => Keyboard.dismiss()}>
           <View style={styles.container}>
                   
-            <StatusBar hidden/>
-
             <View style={styles.containerTitle}>
               <Text style={{marginTop: 20, fontSize: 24 }}>Crie sua nova conta</Text>
               <Text style={{marginTop: 14}}>Você poderá alterar algumas informações depois</Text>
@@ -73,6 +65,8 @@ function CadastroNome({navigation}) {
               keyboardType='email-address'
               value={email}
               onChangeText={text=>setEmail(text)}
+              errorStyle={{ color: 'red' }}
+              errorMessage='Campo obrigatorio *'
             />
 
             <Input 
@@ -80,6 +74,8 @@ function CadastroNome({navigation}) {
               autoFocus={true}
               value={nome}
               onChangeText={text=>setNome(text)}
+              errorStyle={{ color: 'red' }}
+              errorMessage='Campo obrigatorio *'
             />
 
             <Input 
@@ -88,6 +84,8 @@ function CadastroNome({navigation}) {
               secureTextEntry={true}
               value={password}
               onChangeText={text=>setPassword(text)}
+              errorStyle={{ color: 'red' }}
+              errorMessage='Campo obrigatorio *'
             />
 
             <Input 
@@ -96,6 +94,8 @@ function CadastroNome({navigation}) {
               autoFocus={true}
               value={passwordConfirmation}
               onChangeText={text=>setPasswordConfirmation(text)}
+              errorStyle={{ color: 'red' }}
+              errorMessage='Campo obrigatorio *'
             />
           
         
@@ -104,7 +104,7 @@ function CadastroNome({navigation}) {
             </TouchableOpacity>
 
             <View style={styles.singUpContainer}>
-              <TouchableOpacity onPress={()=> toggleLogin()} >
+              <TouchableOpacity onPress={()=> navigation.navigate('Login')} >
                 <Text style={styles.singUpButton}>ja possui uma conta?</Text>
               </TouchableOpacity>
             </View>
@@ -115,8 +115,4 @@ function CadastroNome({navigation}) {
       );
   }
 
-  return(
-    <Login/>
-  );
-}
-export default CadastroNome;
+  

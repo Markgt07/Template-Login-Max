@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../pages/Login';
 import CadastroNome from '../pages/CadastroNome'
-import cadastroSenha from '../pages/CadastroSenha';
+import esqueciSenha from '../pages/EsqueciSenha';
 
 
 const Stack = createNativeStackNavigator();
@@ -12,7 +12,7 @@ function AuthRoutes() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="CadastroNome" component={CadastroNome} />
-        <Stack.Screen name="cadastroSenha" component={cadastroSenha} />
+        <Stack.Screen name="esqueciSenha" component={esqueciSenha} />
       </Stack.Navigator> 
   );
 }

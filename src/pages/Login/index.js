@@ -23,18 +23,20 @@ export default function Login({navigation}) {
   async function handleSendForm(){
     try{
       const schema = Yup.object().shape({
-        email: yup
+        email: Yup
         .string()
         .required('O email não pode ser vazio')
         .email('Digite um email válido'),
-        password: yup
+        password: Yup
         .string()
         .required('A senha não pode ser vazia')
         .min(6, 'A senha deve conter pelo menos 6 dígitos')
       })
       await schema.validate({email,password},{abortEarly: false,})
 
+      navigation.navigate('Home')
       Alert.alert('Passou')
+
     }catch(error){ 
       if(error instanceof Yup.ValidationError){
         Alert.alert(error.message)
