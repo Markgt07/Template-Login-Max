@@ -4,7 +4,7 @@ export default StyleSheet.create({
     container: {
       backgroundColor: '#ffffff',
       alignItems: 'center',
-      justifyContent:'center'
+      justifyContent:'center',
     
     },
     logo: {

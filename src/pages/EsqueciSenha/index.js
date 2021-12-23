@@ -28,7 +28,7 @@ export default function esqueciSenha({navigation}) {
 
             <TextInput
                 secureTextEntry={true}
-                placeholder="Senha" style={styles.textBox}
+                placeholder="E-mail" style={styles.textBox}
                 onChangeText={text=>setSenha(text)} 
             />
 

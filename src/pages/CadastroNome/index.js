@@ -1,52 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{useState} from 'react';
-import {Text, View,TextInput,TouchableOpacity,Platform,KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback, Alert} from 'react-native';
-import Login from '../Login/index.js';
+import React from 'react';
+import {Text, View,TouchableOpacity,Platform,KeyboardAvoidingView,Keyboard,TouchableWithoutFeedback} from 'react-native';
 import styles from './styles.js';
-import { Input } from 'react-native-elements';
 import * as Yup from 'yup';
+import { useForm } from "react-hook-form";
+import InputForm from '../../components/form.js';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function CadastroNome({navigation}) {
 
-  
-  const [email,setEmail] = useState('');
-  const [nome,setNome] = useState('');
-  const [password,setPassword] = useState('');
-  const [passwordConfirmation,setPasswordConfirmation] = useState('');
+  const schema = Yup.object({
+    email: Yup.string().email('Digite um e-mail valido *').required('E-mail obrigatorio *'),
+    nome: Yup.string().required('Nome obrigatorio *'),
+    password: Yup.string().min(8,'A senha deve conter no minimo 8 caracteres *').required('Senha obrigatoria *'),
+    passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Repita a mesma senha *')
+  }).required();
 
-  
-  
-  //Validação Manual 
- /* function handleSingUp(){
-    if(email === ''){
-      console.log('Preencha o campo corretamente')
-      return;
-    }
-    navigation.navigate('cadastroSenha')
-  }*/
 
-  //Função do Yup
-
-  async function handleSendForm(){
-    try{
-      const schema = Yup.object().shape({
-        email: Yup.string().email().required('capo'),
-        nome: Yup.string().required(),
-        password: Yup.string().min(8).required(),
-        passwordConfirmation: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
-  
-      })
-      await schema.validate({email,nome,password},{abortEarly: false,})
-
-      navigation.navigate('cadastroSenha')
-      Alert.alert('Passou')
-      
-    }catch(error){
-      if(error instanceof Yup.ValidationError){
-        Alert.alert(error.message)
-      }
-    }
-  }
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = data => console.log(data);
 
     return (
         
@@ -59,47 +32,49 @@ export default function CadastroNome({navigation}) {
               <Text style={{marginTop: 14}}>Você poderá alterar algumas informações depois</Text>
             </View>
             
-            <Input 
+            <InputForm
+              control={control}
               placeholder="Insira seu e-mail"
               autoFocus={true}
               keyboardType='email-address'
-              value={email}
-              onChangeText={text=>setEmail(text)}
               errorStyle={{ color: 'red' }}
-              errorMessage='Campo obrigatorio *'
+              errorMessage={errors.email?.message}
+              campos="email"
+              
             />
 
-            <Input 
+            <InputForm
+              control={control} 
               placeholder="Insira seu Nome"
               autoFocus={true}
-              value={nome}
-              onChangeText={text=>setNome(text)}
               errorStyle={{ color: 'red' }}
-              errorMessage='Campo obrigatorio *'
+              errorMessage={errors.nome?.message}
+              campos="nome"
             />
 
-            <Input 
+            <InputForm 
+              control={control}
               placeholder="Insira sua senha" 
               autoFocus={true}
               secureTextEntry={true}
-              value={password}
-              onChangeText={text=>setPassword(text)}
               errorStyle={{ color: 'red' }}
-              errorMessage='Campo obrigatorio *'
+              errorMessage={errors.password?.message}
+              campos="password"
             />
 
-            <Input 
+            <InputForm
+              control={control} 
               placeholder="Confirme sua senha"
               secureTextEntry={true}
               autoFocus={true}
-              value={passwordConfirmation}
-              onChangeText={text=>setPasswordConfirmation(text)}
               errorStyle={{ color: 'red' }}
-              errorMessage='Campo obrigatorio *'
+              errorMessage={errors.passwordConfirmation?.message}
+              campos="passwordConfirmation"
+
             />
           
         
-            <TouchableOpacity style={styles.button} onPress={handleSendForm}>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
               <Text style={styles.loginText}>Avançar</Text>
             </TouchableOpacity>
 
